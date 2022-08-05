@@ -4,6 +4,9 @@ set -eu
 start_index=${1:-undefined}
 host=${2:-localhost}
 
+export NODE_TLS_REJECT_UNAUTHORIZED=0
+LOCAL_PORT=9200
+
 if [ ${AWS_ACCESS_KEY_ID-undefined} = "undefined" ] ||
    [ ${AWS_SECRET_ACCESS_KEY-undefined} = "undefined" ] ||
    [ ${S3_BUCKET_NAME-undefined} = "undefined" ]; then
@@ -11,9 +14,6 @@ if [ ${AWS_ACCESS_KEY_ID-undefined} = "undefined" ] ||
     echo 'Set environment variable and try again.' >&2
     exit -1
 fi
-
-export NODE_TLS_REJECT_UNAUTHORIZED=0
-LOCAL_PORT=9200
 
 indices=$(
     awscurl -k \
