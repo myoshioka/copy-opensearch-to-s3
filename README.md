@@ -14,14 +14,15 @@
 - Connect to OpenSearch with ssh port forwarding via a bastion server.
 
 ```bash
-$ ssh -i ~/.ssh/BASTION-SERVER-SECRET-KEY ec2-user@BASTION-SERVER-IP -L 9200:OPEN_SEARCH_HOST:443
+$ ssh -i ~/.ssh/[BASTION-SERVER-SECRET-KEY] ec2-user@[BASTION-SERVER-IP] -L 9200:[OPEN_SEARCH_HOST]:443
 ```
 
 - Uses the access keys of IAM user with OpenSearch access permission.
 
 ```bash
-$ ES_HOST="your-OpenSearch-host-name" \
+$ S3_BUCKET_NAME=your-bucket_name \
 AWS_ACCESS_KEY_ID=your-key-id \
 AWS_SECRET_ACCESS_KEY=your-access-key \
 ./es-dump.sh
 ```
+
