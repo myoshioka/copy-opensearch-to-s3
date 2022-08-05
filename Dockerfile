@@ -11,3 +11,7 @@ RUN npm install elasticdump
 RUN pip install awscurl
 
 COPY ./es-dump.sh ./
+
+ENTRYPOINT ["/bin/bash", "/code/es-dump.sh"]
+
+
