@@ -2,6 +2,7 @@
 set -eu
 
 start_index=${1:-undefined}
+host=${2:-localhost}
 
 if [ ${AWS_ACCESS_KEY_ID-undefined} = "undefined" ] ||
    [ ${AWS_SECRET_ACCESS_KEY-undefined} = "undefined" ] ||
@@ -22,7 +23,7 @@ indices=$(
             --secret_key ${AWS_SECRET_ACCESS_KEY} \
             --request GET \
             --header "host: amazonaws.com" \
-            "https://localhost:${LOCAL_PORT}/_cat/indices?h=i&s=i"
+            "https://${host}:${LOCAL_PORT}/_cat/indices?h=i&s=i"
        )
 
 echo $indices
@@ -47,7 +48,7 @@ do
         index_array=(${index//-/ })
 
         npx elasticdump \
-            --input https://localhost:${LOCAL_PORT}/${index} \
+            --input https://${host}:${LOCAL_PORT}/${index} \
             --output "s3://${S3_BUCKET_NAME}/${index_array[2]}/${index_array[3]}/${index_array[4]}/es_dump_${index}.gz" \
             --type=data \
             --awsAccessKeyId=${AWS_ACCESS_KEY_ID} \
@@ -55,7 +56,7 @@ do
             --awsService=es \
             --awsRegion=ap-northeast-1 \
             --sourceOnly=true \
-            --awsUrlRegex='^https?:\/\/localhost.*$' \
+            --awsUrlRegex='^https?:\/\/${host}.*$' \
             --s3AccessKeyId=${AWS_ACCESS_KEY_ID} \
             --s3SecretAccessKey=${AWS_SECRET_ACCESS_KEY} \
             --s3Compress=true \
