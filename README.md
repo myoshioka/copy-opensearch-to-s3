@@ -2,7 +2,9 @@
 
 ## Description
 
-- This will be a shell script for a case where there is an OpenSearch in vpc and you need to connect via ssh port forwarding.
+- This will be a shell script for a case where there is an OpenSearch in VPC and you need to connect via ssh port forwarding.
+- Get a list of indexes, dump the OpenSearch data for each index and upload to S3.
+- Index name is assumed to be in [app-log-yyyy-MM-dd] format
 
 ## Requirement
 
